@@ -2,7 +2,7 @@
   <ul class="todo-list">
     <li
       class="todo-list__item"
-      *ngFor="let todo of todoList$ | async; let i = index; trackBy: todoById"
+      *ngFor="let todo of todoList$ | async | search: todoSearchLabel:'label' ; let i = index; trackBy: todoById"
     >
       <app-todo-item [todo]="todo" [index]="i"></app-todo-item>
     </li>
