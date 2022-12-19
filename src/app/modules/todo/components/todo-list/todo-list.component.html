@@ -1,1 +1,10 @@
-<p>todo-list works!</p>
+<ng-container *ngIf="(todoList$ | async)?.length > 0">
+  <ul class="todo-list">
+    <li
+      class="todo-list__item"
+      *ngFor="let todo of todoList$ | async; let i = index; trackBy: todoById"
+    >
+      <app-todo-item [todo]="todo" [index]="i"></app-todo-item>
+    </li>
+  </ul>
+</ng-container>

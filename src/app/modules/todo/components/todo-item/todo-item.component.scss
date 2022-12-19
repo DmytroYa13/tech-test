@@ -1,0 +1,19 @@
+.todo {
+
+  display: flex;
+  width: 100%;
+  column-gap: 20px;
+
+  &__input {
+  }
+
+  &__index {
+  }
+
+  &__label {
+  }
+
+  &__actions {
+    margin-left: auto;
+  }
+}

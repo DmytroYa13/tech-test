@@ -1,1 +1,15 @@
-<p>todo-item works!</p>
+<div class="todo" *ngIf="todo">
+  <div class="todo__checkbox">
+    <input
+      type="checkbox"
+      [checked]="todo.done"
+      (change)="onToggleDone(todo.id)"
+    />
+  </div>
+  <div class="todo__index">{{ index }}</div>
+  <div class="todo__label">{{ todo.label }}</div>
+  <div class="todo__actions">
+    <button (click)="editTodo(todo.id)">edit</button>
+    <button (click)="deleteTodo(todo.id)">edit</button>
+  </div>
+</div>
