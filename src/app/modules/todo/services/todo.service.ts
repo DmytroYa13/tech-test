@@ -6,6 +6,7 @@ import { TodoInputType } from "../types/todo-input.type";
 import { TodoInterface } from "../types/todo.interface";
 import { map, take } from "rxjs/operators";
 import { FireBaseResponseInterface } from "src/app/_shared/types/fire-base-response.interface";
+import { FireBasePostResponse } from "src/app/_shared/types/fire-base-post-response.interface";
 
 @Injectable()
 export class TodoService {
@@ -32,7 +33,15 @@ export class TodoService {
   }
 
   postTodo(newTodo: TodoInputType): Observable<TodoInterface> {
-    return this.http.post<TodoInterface>(`${this.API_URL}.json`, newTodo);
+    return this.http
+      .post<FireBasePostResponse>(`${this.API_URL}.json`, newTodo)
+      .pipe(
+        take(1),
+        map((response: FireBasePostResponse) => ({
+          ...newTodo,
+          id: response.name,
+        }))
+      );
   }
 
   updateTodo(
