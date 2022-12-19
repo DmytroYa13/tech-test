@@ -23,4 +23,8 @@ export class TodoListComponent implements OnInit {
   fetchData(): void {
     this.todoList$ = this.todoService.getTodos();
   }
+
+  onSearch(searchValue: string): void {
+    console.log('search', searchValue);
+  }
 }
