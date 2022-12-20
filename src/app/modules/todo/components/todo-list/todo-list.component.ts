@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
+import { take } from "rxjs/operators";
 import { TodoService } from "../../services/todo.service";
 import { TodoInterface } from "../../types/todo.interface";
 
@@ -34,9 +35,12 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteTodo(id: string): void {
-    this.todoService.deleteTodo(id).subscribe((response) => {
-      this.todoService.filterTodoList(id);
-    });
+    this.todoService
+      .deleteTodo(id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.todoService.filterTodoList(id);
+      });
   }
 
   toggleDone(todo: TodoInterface): void {
@@ -45,8 +49,11 @@ export class TodoListComponent implements OnInit {
       updatedAt: new Date(),
     };
 
-    this.todoService.updateTodo(updatedBody, todo.id).subscribe((response) => {
-      this.todoService.updateTodoList({ ...updatedBody, id: todo.id });
-    });
+    this.todoService
+      .updateTodo(updatedBody, todo.id)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.todoService.updateTodoList({ ...updatedBody, id: todo.id });
+      });
   }
 }

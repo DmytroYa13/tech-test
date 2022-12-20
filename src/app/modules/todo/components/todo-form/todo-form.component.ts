@@ -12,6 +12,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { take } from "rxjs/operators";
 import { TodoService } from "../../services/todo.service";
 import { TodoInputType } from "../../types/todo-input.type";
 import { TodoInterface } from "../../types/todo.interface";
@@ -79,6 +80,7 @@ export class TodoFormComponent implements OnInit {
     if (this.todo) {
       this.todoService
         .updateTodo({ ...todoBody, updatedAt: new Date() }, this.todo.id)
+        .pipe(take(1))
         .subscribe((response) => {
           this.todoService.updateTodoList(response);
           this.onCloseForm();
@@ -86,6 +88,7 @@ export class TodoFormComponent implements OnInit {
     } else {
       this.todoService
         .postTodo({ ...todoBody, createdAt: new Date() })
+        .pipe(take(1))
         .subscribe((response) => {
           this.todoService.addToTodoList(response);
           this.onCloseForm();
