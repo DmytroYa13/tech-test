@@ -39,11 +39,11 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   getTodos(): Observable<TodoInterface[]> {
-    // return this.http
-    //   .get<TodoInterface[]>(`${this.API_URL}.json`)
-    //   // .pipe(take(1), map(this.prepareFireBaseResponse));
+    return this.http
+      .get<TodoInterface[]>(`${this.API_URL}.json`)
+      .pipe(take(1), map(this.prepareFireBaseResponse));
 
-      return of(FAKE_DATA)
+      // return of(FAKE_DATA)
   }
 
   getTodoById(id: string): Observable<TodoInterface> {

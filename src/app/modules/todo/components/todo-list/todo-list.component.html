@@ -1,12 +1,22 @@
 <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
 
-<ng-container *ngIf="(todoList$ | async)?.length > 0">
+<ng-container *ngIf="(todoList$ | async)?.length > 0; else emptyState">
   <ul class="todo-list">
     <li
       class="todo-list__item"
-      *ngFor="let todo of todoList$ | async | search: todoSearchLabel:'label' ; let i = index; trackBy: todoById"
+      *ngFor="
+        let todo of todoList$ | async | search : todoSearchLabel : 'label';
+        let i = index;
+        trackBy: todoById
+      "
     >
       <app-todo-item [todo]="todo" [index]="i"></app-todo-item>
     </li>
   </ul>
 </ng-container>
+
+<ng-template #emptyState>
+  <app-empty-state text="No TODO Found"></app-empty-state>
+</ng-template>
+
+<app-loader></app-loader>

@@ -1,0 +1,19 @@
+.empty-state {
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+
+  &__icon {
+    img {
+      width: auto;
+      max-height: 40vh;
+    }
+  }
+
+  &__text {
+  }
+}
