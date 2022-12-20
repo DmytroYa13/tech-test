@@ -1,16 +1,18 @@
 .todo {
-
   display: flex;
   width: 100%;
   column-gap: 20px;
 
-  &__input {
+  &__checkbox {
   }
 
   &__index {
   }
 
   &__label {
+    &--done {
+      text-decoration: line-through;
+    }
   }
 
   &__actions {

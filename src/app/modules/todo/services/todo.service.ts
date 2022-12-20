@@ -1,12 +1,36 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { TodoInputType } from "../types/todo-input.type";
 import { TodoInterface } from "../types/todo.interface";
 import { map, take } from "rxjs/operators";
 import { FireBaseResponseInterface } from "src/app/_shared/types/fire-base-response.interface";
 import { FireBasePostResponse } from "src/app/_shared/types/fire-base-post-response.interface";
+
+const FAKE_DATA: TodoInterface[] = [
+  {
+    id:'1',
+    label: 'label1',
+    description: 'description1',
+    category: 'category1',
+    done: false,
+  },
+  {
+    id:'2',
+    label: 'label2',
+    description: 'description2',
+    category: 'category2',
+    done: true,
+  },
+  {
+    id:'3',
+    label: 'label3',
+    description: 'description3',
+    category: 'category3',
+    done: true,
+  }
+]
 
 @Injectable()
 export class TodoService {
@@ -15,9 +39,11 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   getTodos(): Observable<TodoInterface[]> {
-    return this.http
-      .get<TodoInterface[]>(`${this.API_URL}.json`)
-      .pipe(take(1), map(this.prepareFireBaseResponse));
+    // return this.http
+    //   .get<TodoInterface[]>(`${this.API_URL}.json`)
+    //   // .pipe(take(1), map(this.prepareFireBaseResponse));
+
+      return of(FAKE_DATA)
   }
 
   getTodoById(id: string): Observable<TodoInterface> {

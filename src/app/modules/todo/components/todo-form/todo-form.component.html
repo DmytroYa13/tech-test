@@ -1,22 +1,31 @@
 <form [formGroup]="todoForm" (ngSubmit)="postNewTodo()" class="todo-form">
-
   <div class="todo-form__row">
-    <input type="text" placeholder="Label" formControlName="label" />
+    <input
+      class="custom-input"
+      type="text"
+      placeholder="Label"
+      formControlName="label"
+    />
   </div>
 
   <div class="todo-form__row">
     <textarea
+      class="custom-input"
       placeholder="Description"
       formControlName="description"
     ></textarea>
   </div>
 
   <div class="todo-form__row">
-    <input type="text" placeholder="Category" formControlName="category" />
+    <input
+      class="custom-input"
+      type="text"
+      placeholder="Category"
+      formControlName="category"
+    />
   </div>
 
   <div class="todo-form__submit">
-    <button type="submit">Save</button>
+    <button class="custom-button custom-button--success " type="submit">Save</button>
   </div>
-
 </form>

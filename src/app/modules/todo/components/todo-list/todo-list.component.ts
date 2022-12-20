@@ -10,7 +10,7 @@ import { TodoInterface } from "../../types/todo.interface";
 })
 export class TodoListComponent implements OnInit {
   todoList$: Observable<TodoInterface[]>;
-  todoSearchLabel: string = 'test'
+  todoSearchLabel: string = ''
 
   todoById = (index: number, item: TodoInterface) => item.id;
 

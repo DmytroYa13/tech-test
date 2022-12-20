@@ -1,1 +1,13 @@
-<input type="text" [formControl]="searchControl">
+<div class="search">
+  <input
+    class="custom-input custom-input--search search__input"
+    type="text"
+    [formControl]="searchControl"
+  />
+  <span
+    *ngIf="searchControl.value && searchControl.value !== ''"
+    class="search__clear"
+    (click)="onClearClick()"
+    >X</span
+  >
+</div>

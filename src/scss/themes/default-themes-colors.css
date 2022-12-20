@@ -1,0 +1,8 @@
+:root {
+  --color__main: black;
+
+  --color__btn--default: grey;
+  --color__btn--success: green;
+  --color__btn--warn: yellow;
+  --color__btn--danger: red;
+}

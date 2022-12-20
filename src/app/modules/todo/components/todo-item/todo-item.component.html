@@ -6,10 +6,12 @@
       (change)="onToggleDone(todo.id)"
     />
   </div>
-  <div class="todo__index">{{ index }}</div>
-  <div class="todo__label">{{ todo.label }}</div>
+
+  <div class="todo__label" [class.todo__label--done]="todo.done">
+    <span class="todo__index">{{ index }}) </span> {{ todo.label }}
+  </div>
   <div class="todo__actions">
-    <button (click)="editTodo(todo.id)">edit</button>
-    <button (click)="deleteTodo(todo.id)">edit</button>
+    <button class="custom-button custom-button--warn" (click)="editTodo(todo.id)">Edit</button>
+    <button class="custom-button custom-button--danger"  (click)="deleteTodo(todo.id)">Delete</button>
   </div>
 </div>

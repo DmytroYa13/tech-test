@@ -40,6 +40,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       });
   }
 
+  onClearClick(): void {
+    this.searchControl.setValue('');
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

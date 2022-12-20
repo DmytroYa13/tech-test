@@ -1,0 +1,24 @@
+.custom-button {
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  background-color: aqua;
+  margin: 5px;
+  cursor: pointer;
+  background-color: var(--color__btn--default);
+
+  &--success {
+    background-color: var(--color__btn--success);
+    color: white;
+  }
+
+  &--warn {
+    background-color: var(--color__btn--warn);
+    color: black;
+  }
+
+  &--danger {
+    background-color: var(--color__btn--danger);
+    color: white;
+  }
+}

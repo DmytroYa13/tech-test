@@ -1,0 +1,22 @@
+.search {
+
+  position: relative;
+
+  &__input {
+
+  }
+
+  &__clear {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    padding: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: grey;
+      border-radius: 3px;
+    }
+
+  }
+}
