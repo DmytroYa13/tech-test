@@ -1,6 +1,6 @@
 <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
 
-<ng-container *ngIf="(todoList$ | async)?.length > 0; else emptyState">
+<ng-container>
   <ul class="todo-list">
     <li
       class="todo-list__item"
@@ -10,7 +10,7 @@
         trackBy: todoById
       "
     >
-      <app-todo-item [todo]="todo" [index]="i"></app-todo-item>
+      <app-todo-item [todo]="todo" [index]="i + 1"></app-todo-item>
     </li>
   </ul>
 </ng-container>

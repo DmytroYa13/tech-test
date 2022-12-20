@@ -6,6 +6,7 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoLayoutComponent } from './components/todo-layout/todo-layout.component';
 import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { TodoService } from './services/todo.service';
+import { CreateTodoWrapperComponent } from './components/create-todo-wrapper/create-todo-wrapper.component';
 
 
 
@@ -14,7 +15,8 @@ import { TodoService } from './services/todo.service';
     TodoItemComponent,
     TodoListComponent,
     TodoLayoutComponent,
-    TodoFormComponent
+    TodoFormComponent,
+    CreateTodoWrapperComponent
   ],
   imports: [
     CommonModule,

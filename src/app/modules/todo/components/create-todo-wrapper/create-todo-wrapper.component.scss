@@ -1,0 +1,38 @@
+.create-todo {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+
+  &__form {
+    flex: calc(100% - 50px);
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    height: 0px;
+
+    &--open {
+      max-height: 200px;
+      height: auto;
+      overflow: auto;
+    }
+  }
+
+  &__toggle {
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+
+    span {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: gray;
+      font-size: 25px;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}

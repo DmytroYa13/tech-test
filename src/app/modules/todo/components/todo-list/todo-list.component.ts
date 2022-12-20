@@ -10,21 +10,26 @@ import { TodoInterface } from "../../types/todo.interface";
 })
 export class TodoListComponent implements OnInit {
   todoList$: Observable<TodoInterface[]>;
-  todoSearchLabel: string = ''
+  todoSearchLabel: string = "";
 
   todoById = (index: number, item: TodoInterface) => item.id;
 
-  constructor(private todoService: TodoService) {}
+  constructor(public todoService: TodoService) {}
 
   ngOnInit(): void {
+    this.initializeValues();
     this.fetchData();
   }
 
+  initializeValues(): void {
+    this.todoList$ = this.todoService.getTodoList$;
+  }
+
   fetchData(): void {
-    this.todoList$ = this.todoService.getTodos();
+    this.todoService.getTodos();
   }
 
   onSearch(searchValue: string): void {
-    console.log('search', searchValue);
+    console.log("search", searchValue);
   }
 }

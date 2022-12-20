@@ -21,4 +21,9 @@
     background-color: var(--color__btn--danger);
     color: white;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

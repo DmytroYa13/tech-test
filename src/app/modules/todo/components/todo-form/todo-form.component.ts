@@ -11,6 +11,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { TodoService } from "../../services/todo.service";
 import { TodoInputType } from "../../types/todo-input.type";
 
 @Component({
@@ -20,8 +21,6 @@ import { TodoInputType } from "../../types/todo-input.type";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoFormComponent implements OnInit {
-  @Output() newTodoEvent = new EventEmitter<TodoInputType>();
-
   todoForm: FormGroup;
 
   private get formData() {
@@ -39,6 +38,8 @@ export class TodoFormComponent implements OnInit {
   get category(): AbstractControl {
     return this.todoForm.get("category");
   }
+
+  constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -68,6 +69,9 @@ export class TodoFormComponent implements OnInit {
       done: false,
     };
 
-    this.newTodoEvent.emit(newTodo);
+    this.todoService.postTodo(newTodo).subscribe((response) => {
+      this.todoService.updateTodoList(response);
+      this.clearForm()
+    });
   }
 }

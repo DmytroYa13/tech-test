@@ -1,49 +1,62 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { TodoInputType } from "../types/todo-input.type";
 import { TodoInterface } from "../types/todo.interface";
-import { map, take } from "rxjs/operators";
+import { map, take, tap } from "rxjs/operators";
 import { FireBaseResponseInterface } from "src/app/_shared/types/fire-base-response.interface";
 import { FireBasePostResponse } from "src/app/_shared/types/fire-base-post-response.interface";
 
 const FAKE_DATA: TodoInterface[] = [
   {
-    id:'1',
-    label: 'label1',
-    description: 'description1',
-    category: 'category1',
+    id: "1",
+    label: "label1",
+    description: "description1",
+    category: "category1",
     done: false,
   },
   {
-    id:'2',
-    label: 'label2',
-    description: 'description2',
-    category: 'category2',
+    id: "2",
+    label: "label2",
+    description: "description2",
+    category: "category2",
     done: true,
   },
   {
-    id:'3',
-    label: 'label3',
-    description: 'description3',
-    category: 'category3',
+    id: "3",
+    label: "label3",
+    description: "description3",
+    category: "category3",
     done: true,
-  }
-]
+  },
+];
 
 @Injectable()
 export class TodoService {
   private readonly API_URL = `${environment.apiUrl}/todo`;
 
+  private todoList$ = new BehaviorSubject<TodoInterface[]>([]);
+
   constructor(private http: HttpClient) {}
 
-  getTodos(): Observable<TodoInterface[]> {
-    return this.http
-      .get<TodoInterface[]>(`${this.API_URL}.json`)
-      .pipe(take(1), map(this.prepareFireBaseResponse));
+  getTodoList$ = this.todoList$.asObservable();
 
-      // return of(FAKE_DATA)
+  updateTodoList(todo: TodoInterface): void {
+    this.todoList$.next([todo, ...this.todoList$.getValue()]);
+  }
+
+  filterTodoList(id: string): void {
+    this.todoList$.next(
+      this.todoList$.getValue().filter((item: TodoInterface) => item.id !== id)
+    );
+  }
+
+  getTodos() {
+    this.http
+      .get<TodoInterface[]>(`${this.API_URL}.json`)
+      .pipe(take(1), map(this.prepareFireBaseResponse))
+      .subscribe((todos: TodoInterface[]) => this.todoList$.next(todos));
   }
 
   getTodoById(id: string): Observable<TodoInterface> {

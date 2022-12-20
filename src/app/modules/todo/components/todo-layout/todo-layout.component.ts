@@ -1,20 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { TodoService } from "../../services/todo.service";
-import { TodoInputType } from "../../types/todo-input.type";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-todo-layout",
   templateUrl: "./todo-layout.component.html",
   styleUrls: ["./todo-layout.component.scss"],
 })
-export class TodoLayoutComponent implements OnInit {
-  constructor(private todoService: TodoService) {}
+export class TodoLayoutComponent {
 
-  ngOnInit(): void {}
 
-  postTodo(newTodo: TodoInputType): void {
-    this.todoService.postTodo(newTodo).subscribe((response) => {
-      console.log("response", response);
-    });
-  }
 }
