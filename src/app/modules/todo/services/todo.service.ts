@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable, Optional } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { TodoInputType } from "../types/todo-input.type";
@@ -7,6 +7,7 @@ import { TodoInterface } from "../types/todo.interface";
 import { map, take, tap } from "rxjs/operators";
 import { FireBaseResponseInterface } from "src/app/_shared/types/fire-base-response.interface";
 import { FireBasePostResponse } from "src/app/_shared/types/fire-base-post-response.interface";
+import { API_URL } from "src/app/_shared/injectionTokens/api-url.token";
 
 const FAKE_DATA: TodoInterface[] = [
   {
@@ -34,11 +35,16 @@ const FAKE_DATA: TodoInterface[] = [
 
 @Injectable()
 export class TodoService {
-  private readonly API_URL = `${environment.apiUrl}/todo`;
+  private readonly apiUrl: string;
 
   private todoList$ = new BehaviorSubject<TodoInterface[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Optional() @Inject(API_URL) apiUrl?: string
+  ) {
+    this.apiUrl = apiUrl ? `${apiUrl}/todo` : "";
+  }
 
   getTodoList$ = this.todoList$.asObservable();
 
@@ -65,13 +71,15 @@ export class TodoService {
 
   getTodos() {
     this.http
-      .get<TodoInterface[]>(`${this.API_URL}.json`)
+      .get<TodoInterface[]>(`${this.apiUrl}.json`)
       .pipe(take(1), map(this.prepareFireBaseResponse))
-      .subscribe((todos: TodoInterface[]) => this.todoList$.next(todos.reverse()));
+      .subscribe((todos: TodoInterface[]) =>
+        this.todoList$.next(todos.reverse())
+      );
   }
 
   getTodoById(id: string): Observable<TodoInterface> {
-    return this.http.get<TodoInterface>(`${this.API_URL}/${id}.json`).pipe(
+    return this.http.get<TodoInterface>(`${this.apiUrl}/${id}.json`).pipe(
       take(1),
       map((response: TodoInterface) => {
         if (response) {
@@ -84,7 +92,7 @@ export class TodoService {
 
   postTodo(newTodo: TodoInputType): Observable<TodoInterface> {
     return this.http
-      .post<FireBasePostResponse>(`${this.API_URL}.json`, newTodo)
+      .post<FireBasePostResponse>(`${this.apiUrl}.json`, newTodo)
       .pipe(
         take(1),
         map((response: FireBasePostResponse) => ({
@@ -98,7 +106,7 @@ export class TodoService {
     updatedTodo: Partial<TodoInputType>,
     id: string
   ): Observable<TodoInterface> {
-    return this.http.patch<any>(`${this.API_URL}/${id}.json`, updatedTodo).pipe(
+    return this.http.patch<any>(`${this.apiUrl}/${id}.json`, updatedTodo).pipe(
       take(1),
       map((response) => ({
         ...response,
@@ -107,7 +115,7 @@ export class TodoService {
     );
   }
   deleteTodo(id: string): Observable<TodoInterface> {
-    return this.http.delete<TodoInterface>(`${this.API_URL}/${id}.json`);
+    return this.http.delete<TodoInterface>(`${this.apiUrl}/${id}.json`);
   }
 
   private prepareFireBaseResponse(

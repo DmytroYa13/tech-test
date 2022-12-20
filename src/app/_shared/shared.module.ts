@@ -7,6 +7,8 @@ import { LoaderComponent } from "./components/loader/loader.component";
 import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LoaderInterceptor } from "./interceptors/loader";
+import { environment } from "src/environments/environment";
+import { API_URL } from "./injectionTokens/api-url.token";
 
 const components = [
   SearchBarComponent,
@@ -24,6 +26,10 @@ const components = [
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true,
+    },
+    {
+      provide: API_URL,
+      useValue: environment.apiUrl,
     },
   ],
 })
