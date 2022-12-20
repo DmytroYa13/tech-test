@@ -15,8 +15,7 @@
     transition: max-height 0.5s;
 
     &--open {
-      max-height: 200px;
-      overflow-y: auto;
+      max-height: 800px;
     }
   }
 
@@ -27,11 +26,11 @@
   }
 
   &__description {
-    padding: 10px 0 10px 10px;
+    padding: 10px 0;
   }
 
   &__category {
-    padding: 0 0 10px 10px;
+    padding: 10px 0;
   }
 
   &__actions {
@@ -39,5 +38,15 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+  }
+
+  &__form {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+
+    &--open {
+      max-height: 250px;
+    }
   }
 }

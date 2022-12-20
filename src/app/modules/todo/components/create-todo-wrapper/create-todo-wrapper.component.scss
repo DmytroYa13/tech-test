@@ -10,12 +10,9 @@
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s;
-    height: 0px;
 
     &--open {
-      max-height: 200px;
-      height: auto;
-      overflow: auto;
+      max-height: 250px;
     }
   }
 
@@ -28,11 +25,13 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background-color: gray;
+      background-color: rgb(238, 238, 238);
       font-size: 25px;
       display: block;
-      text-align: center;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

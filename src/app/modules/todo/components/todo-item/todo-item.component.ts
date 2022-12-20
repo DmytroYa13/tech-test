@@ -22,6 +22,7 @@ export class TodoItemComponent implements OnInit {
   @Output() toggleDoneEvent = new EventEmitter<TodoInterface>();
 
   isExpanded: boolean = false;
+  isEditMode: boolean = false;
 
   constructor() {}
 
@@ -30,8 +31,6 @@ export class TodoItemComponent implements OnInit {
   onToggleDone(): void {
     this.toggleDoneEvent.emit(this.todo);
   }
-
-  editTodo(id: string): void {}
 
   deleteTodo(id: string): void {
     this.deleteTodoEvent.emit(id);

@@ -27,5 +27,6 @@
 
   <div class="todo-form__submit">
     <button [disabled]="todoForm.invalid" class="custom-button custom-button--success " type="submit">Save</button>
+    <button class="custom-button custom-button--warn" type="button" (click)="onCloseForm()">Cancel</button>
   </div>
 </form>

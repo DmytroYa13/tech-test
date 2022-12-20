@@ -1,6 +1,12 @@
 <div class="create-todo">
-  <app-todo-form class="create-todo__form" [class.create-todo__form--open]="isFormOpened"></app-todo-form>
-  <div class="create-todo__toggle" >
-    <span (click)="isFormOpened = !isFormOpened">{{ isFormOpened ? "+" : "-" }}</span>
+  <app-todo-form
+    class="create-todo__form"
+    [class.create-todo__form--open]="isFormOpened"
+    (closeFormEvent)="isFormOpened = false"
+  ></app-todo-form>
+  <div class="create-todo__toggle">
+    <span (click)="isFormOpened = !isFormOpened">{{
+      isFormOpened ? "—" : "+"
+    }}</span>
   </div>
 </div>

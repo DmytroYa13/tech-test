@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from "@angular/core";
@@ -13,6 +14,7 @@ import {
 } from "@angular/forms";
 import { TodoService } from "../../services/todo.service";
 import { TodoInputType } from "../../types/todo-input.type";
+import { TodoInterface } from "../../types/todo.interface";
 
 @Component({
   selector: "app-todo-form",
@@ -21,6 +23,9 @@ import { TodoInputType } from "../../types/todo-input.type";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoFormComponent implements OnInit {
+  @Input() todo: TodoInterface | null = null;
+  @Output() closeFormEvent = new EventEmitter<void>();
+
   todoForm: FormGroup;
 
   private get formData() {
@@ -47,14 +52,16 @@ export class TodoFormComponent implements OnInit {
 
   initializeForm(): void {
     this.todoForm = new FormGroup({
-      label: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, [Validators.required]),
-      category: new FormControl(null, [Validators.required]),
+      label: new FormControl(this.todo ? this.todo.label : null, [
+        Validators.required,
+      ]),
+      description: new FormControl(this.todo ? this.todo.description : null, [
+        Validators.required,
+      ]),
+      category: new FormControl(this.todo ? this.todo.category : null, [
+        Validators.required,
+      ]),
     });
-  }
-
-  clearForm(): void {
-    this.todoForm.reset();
   }
 
   postNewTodo(): void {
@@ -69,9 +76,23 @@ export class TodoFormComponent implements OnInit {
       done: false,
     };
 
-    this.todoService.postTodo(newTodo).subscribe((response) => {
-      this.todoService.addToTodoList(response);
-      this.clearForm()
-    });
+    if (this.todo) {
+      this.todoService
+        .updateTodo(newTodo, this.todo.id)
+        .subscribe((response) => {
+          this.todoService.updateTodoList(response);
+          this.onCloseForm();
+        });
+    } else {
+      this.todoService.postTodo(newTodo).subscribe((response) => {
+        this.todoService.addToTodoList(response);
+        this.onCloseForm();
+      });
+    }
+  }
+
+  onCloseForm() {
+    this.todoForm.reset();
+    this.closeFormEvent.emit();
   }
 }
