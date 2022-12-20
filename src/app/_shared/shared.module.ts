@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { SearchPipe } from "./pipes/search.pipe";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { EmptyStateComponent } from "./components/empty-state/empty-state.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { LoaderInterceptor } from "./interceptors/loader";
 
 const components = [
   SearchBarComponent,
@@ -17,5 +19,12 @@ const components = [
   declarations: [...components],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [ReactiveFormsModule, ...components],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class SharedModule {}

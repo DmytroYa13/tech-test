@@ -1,4 +1,5 @@
 <div class="app">
+  <app-loader class="app__loader" *ngIf="loading$ | async"></app-loader>
 
   <header class="app__header">
     <h1>TODO list</h1>
