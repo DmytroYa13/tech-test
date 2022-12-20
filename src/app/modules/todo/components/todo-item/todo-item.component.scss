@@ -9,13 +9,35 @@
   &__index {
   }
 
+  &__details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+
+    &--open {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  }
+
   &__label {
     &--done {
       text-decoration: line-through;
     }
   }
 
+  &__description {
+    padding: 10px 0 10px 10px;
+  }
+
+  &__category {
+    padding: 0 0 10px 10px;
+  }
+
   &__actions {
     margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }

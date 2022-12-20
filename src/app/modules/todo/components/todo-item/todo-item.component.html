@@ -1,17 +1,36 @@
 <div class="todo" *ngIf="todo">
   <div class="todo__checkbox">
-    <input
-      type="checkbox"
-      [checked]="todo.done"
-      (change)="onToggleDone()"
-    />
+    <input type="checkbox" [checked]="todo.done" (change)="onToggleDone()" />
   </div>
 
+  <span class="todo__index">{{ index }}) </span>
   <div class="todo__label" [class.todo__label--done]="todo.done">
-    <span class="todo__index">{{ index }}) </span> {{ todo.label }}
+    <p>
+      {{ todo.label }}
+    </p>
+    <div class="todo__details" [class.todo__details--open]="isExpanded">
+      <p class="todo__description"><b>Description: </b> {{ todo.description }}</p>
+      <p class="todo__category"><b>Category: </b>{{ todo.category }}</p>
+    </div>
   </div>
   <div class="todo__actions">
-    <button class="custom-button custom-button--warn" (click)="editTodo(todo.id)">Edit</button>
-    <button class="custom-button custom-button--danger"  (click)="deleteTodo(todo.id)">Delete</button>
+    <button
+      class="custom-button custom-button--success"
+      (click)="isExpanded = !isExpanded"
+    >
+      {{ isExpanded ? "Hide" : "Show More" }}
+    </button>
+    <button
+      class="custom-button custom-button--warn"
+      (click)="editTodo(todo.id)"
+    >
+      Edit
+    </button>
+    <button
+      class="custom-button custom-button--danger"
+      (click)="deleteTodo(todo.id)"
+    >
+      Delete
+    </button>
   </div>
 </div>

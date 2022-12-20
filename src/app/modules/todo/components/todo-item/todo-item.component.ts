@@ -21,12 +21,14 @@ export class TodoItemComponent implements OnInit {
   @Output() deleteTodoEvent = new EventEmitter<string>();
   @Output() toggleDoneEvent = new EventEmitter<TodoInterface>();
 
+  isExpanded: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {}
 
   onToggleDone(): void {
-   this.toggleDoneEvent.emit(this.todo);
+    this.toggleDoneEvent.emit(this.todo);
   }
 
   editTodo(id: string): void {}

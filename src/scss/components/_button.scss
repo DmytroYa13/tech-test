@@ -6,6 +6,7 @@
   margin: 5px;
   cursor: pointer;
   background-color: var(--color__btn--default);
+  white-space: nowrap;
 
   &--success {
     background-color: var(--color__btn--success);
