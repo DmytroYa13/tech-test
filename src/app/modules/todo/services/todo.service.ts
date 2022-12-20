@@ -42,7 +42,18 @@ export class TodoService {
 
   getTodoList$ = this.todoList$.asObservable();
 
-  updateTodoList(todo: TodoInterface): void {
+  updateTodoList(todo: Partial<TodoInterface>): void {
+    const dataCopy = this.todoList$.getValue().map((item: TodoInterface) => {
+      if (item.id === todo.id) {
+        return { ...item, ...todo };
+      }
+      return item;
+    });
+
+    this.todoList$.next(dataCopy);
+  }
+
+  addToTodoList(todo: TodoInterface): void {
     this.todoList$.next([todo, ...this.todoList$.getValue()]);
   }
 
@@ -56,7 +67,7 @@ export class TodoService {
     this.http
       .get<TodoInterface[]>(`${this.API_URL}.json`)
       .pipe(take(1), map(this.prepareFireBaseResponse))
-      .subscribe((todos: TodoInterface[]) => this.todoList$.next(todos));
+      .subscribe((todos: TodoInterface[]) => this.todoList$.next(todos.reverse()));
   }
 
   getTodoById(id: string): Observable<TodoInterface> {
@@ -87,13 +98,15 @@ export class TodoService {
     updatedTodo: Partial<TodoInputType>,
     id: string
   ): Observable<TodoInterface> {
-    return this.http.patch<TodoInterface>(
-      `${this.API_URL}/${id}.json`,
-      updatedTodo
+    return this.http.patch<any>(`${this.API_URL}/${id}.json`, updatedTodo).pipe(
+      take(1),
+      map((response) => ({
+        ...response,
+        id,
+      }))
     );
   }
-
-  deleteTodo(id: number): Observable<TodoInterface> {
+  deleteTodo(id: string): Observable<TodoInterface> {
     return this.http.delete<TodoInterface>(`${this.API_URL}/${id}.json`);
   }
 

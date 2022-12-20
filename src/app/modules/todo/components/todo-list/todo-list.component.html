@@ -10,7 +10,12 @@
         trackBy: todoById
       "
     >
-      <app-todo-item [todo]="todo" [index]="i + 1"></app-todo-item>
+      <app-todo-item
+        [todo]="todo"
+        [index]="i + 1"
+        (deleteTodoEvent)="deleteTodo($event)"
+        (toggleDoneEvent)="toggleDone($event)"
+      ></app-todo-item>
     </li>
   </ul>
 </ng-container>

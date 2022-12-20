@@ -70,7 +70,7 @@ export class TodoFormComponent implements OnInit {
     };
 
     this.todoService.postTodo(newTodo).subscribe((response) => {
-      this.todoService.updateTodoList(response);
+      this.todoService.addToTodoList(response);
       this.clearForm()
     });
   }

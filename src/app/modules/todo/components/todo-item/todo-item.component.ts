@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from "@angular/core";
 import { TodoInterface } from "../../types/todo.interface";
 
@@ -16,13 +18,20 @@ export class TodoItemComponent implements OnInit {
   @Input() todo: TodoInterface;
   @Input() index: number;
 
+  @Output() deleteTodoEvent = new EventEmitter<string>();
+  @Output() toggleDoneEvent = new EventEmitter<TodoInterface>();
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  onToggleDone(id: string): void {}
+  onToggleDone(): void {
+   this.toggleDoneEvent.emit(this.todo);
+  }
 
   editTodo(id: string): void {}
 
-  deleteTodo(id: string): void {}
+  deleteTodo(id: string): void {
+    this.deleteTodoEvent.emit(id);
+  }
 }

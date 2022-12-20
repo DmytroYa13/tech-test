@@ -32,4 +32,20 @@ export class TodoListComponent implements OnInit {
   onSearch(searchValue: string): void {
     console.log("search", searchValue);
   }
+
+  deleteTodo(id: string): void {
+    this.todoService.deleteTodo(id).subscribe((response) => {
+      this.todoService.filterTodoList(id);
+    });
+  }
+
+  toggleDone(todo: TodoInterface): void {
+    const updatedBody = {
+      done: !todo.done,
+    };
+
+    this.todoService.updateTodo(updatedBody, todo.id).subscribe((response) => {
+      this.todoService.updateTodoList({ ...updatedBody, id: todo.id });
+    });
+  }
 }
