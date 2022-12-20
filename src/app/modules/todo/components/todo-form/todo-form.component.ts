@@ -69,7 +69,7 @@ export class TodoFormComponent implements OnInit {
       return;
     }
 
-    const newTodo: TodoInputType = {
+    const todoBody: TodoInputType = {
       label: this.formData.label,
       description: this.formData.description,
       category: this.formData.category,
@@ -78,16 +78,18 @@ export class TodoFormComponent implements OnInit {
 
     if (this.todo) {
       this.todoService
-        .updateTodo(newTodo, this.todo.id)
+        .updateTodo({ ...todoBody, updatedAt: new Date() }, this.todo.id)
         .subscribe((response) => {
           this.todoService.updateTodoList(response);
           this.onCloseForm();
         });
     } else {
-      this.todoService.postTodo(newTodo).subscribe((response) => {
-        this.todoService.addToTodoList(response);
-        this.onCloseForm();
-      });
+      this.todoService
+        .postTodo({ ...todoBody, createdAt: new Date() })
+        .subscribe((response) => {
+          this.todoService.addToTodoList(response);
+          this.onCloseForm();
+        });
     }
   }
 

@@ -4,4 +4,6 @@ export interface TodoInterface {
   description: string;
   category: string;
   done: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

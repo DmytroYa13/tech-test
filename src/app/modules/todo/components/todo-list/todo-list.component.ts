@@ -30,7 +30,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onSearch(searchValue: string): void {
-    this.todoSearchLabel = searchValue
+    this.todoSearchLabel = searchValue;
   }
 
   deleteTodo(id: string): void {
@@ -42,6 +42,7 @@ export class TodoListComponent implements OnInit {
   toggleDone(todo: TodoInterface): void {
     const updatedBody = {
       done: !todo.done,
+      updatedAt: new Date(),
     };
 
     this.todoService.updateTodo(updatedBody, todo.id).subscribe((response) => {

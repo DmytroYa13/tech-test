@@ -9,30 +9,6 @@ import { FireBaseResponseInterface } from "src/app/_shared/types/fire-base-respo
 import { FireBasePostResponse } from "src/app/_shared/types/fire-base-post-response.interface";
 import { API_URL } from "src/app/_shared/injectionTokens/api-url.token";
 
-const FAKE_DATA: TodoInterface[] = [
-  {
-    id: "1",
-    label: "label1",
-    description: "description1",
-    category: "category1",
-    done: false,
-  },
-  {
-    id: "2",
-    label: "label2",
-    description: "description2",
-    category: "category2",
-    done: true,
-  },
-  {
-    id: "3",
-    label: "label3",
-    description: "description3",
-    category: "category3",
-    done: true,
-  },
-];
-
 @Injectable()
 export class TodoService {
   private readonly apiUrl: string;
