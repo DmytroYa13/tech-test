@@ -30,7 +30,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onSearch(searchValue: string): void {
-    console.log("search", searchValue);
+    this.todoSearchLabel = searchValue
   }
 
   deleteTodo(id: string): void {

@@ -1,6 +1,11 @@
 <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
 
-<ng-container>
+<ng-container
+  *ngIf="
+    (todoList$ | async | search : todoSearchLabel : 'label')?.length > 0;
+    else emptyState
+  "
+>
   <ul class="todo-list">
     <li
       class="todo-list__item"
