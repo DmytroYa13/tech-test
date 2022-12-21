@@ -2,6 +2,7 @@
   <div class="todo-form__row">
     <input
       class="custom-input"
+      [class.custom-input--invalid]="label.touched && label.invalid"
       type="text"
       placeholder="Label"
       formControlName="label"
@@ -11,6 +12,7 @@
   <div class="todo-form__row">
     <textarea
       class="custom-input"
+      [class.custom-input--invalid]="description.touched && description.invalid"
       placeholder="Description"
       formControlName="description"
     ></textarea>
@@ -19,6 +21,7 @@
   <div class="todo-form__row">
     <input
       class="custom-input"
+      [class.custom-input--invalid]="category.touched && category.invalid"
       type="text"
       placeholder="Category"
       formControlName="category"
