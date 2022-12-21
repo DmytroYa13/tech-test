@@ -13,6 +13,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { take } from "rxjs/operators";
+import { TodoStateService } from "../../services/todo-state.service";
 import { TodoService } from "../../services/todo.service";
 import { TodoInputType } from "../../types/todo-input.type";
 import { TodoInterface } from "../../types/todo.interface";
@@ -45,7 +46,10 @@ export class TodoFormComponent implements OnInit {
     return this.todoForm.get("category");
   }
 
-  constructor(private todoService: TodoService) {}
+  constructor(
+    private todoService: TodoService,
+    private todoStateService: TodoStateService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -82,7 +86,7 @@ export class TodoFormComponent implements OnInit {
         .updateTodo({ ...todoBody, updatedAt: new Date() }, this.todo.id)
         .pipe(take(1))
         .subscribe((response) => {
-          this.todoService.updateTodoList(response);
+          this.todoStateService.updateTodoList(response);
           this.onCloseForm();
         });
     } else {
@@ -90,7 +94,7 @@ export class TodoFormComponent implements OnInit {
         .postTodo({ ...todoBody, createdAt: new Date() })
         .pipe(take(1))
         .subscribe((response) => {
-          this.todoService.addToTodoList(response);
+          this.todoStateService.addToTodoList(response);
           this.onCloseForm();
         });
     }

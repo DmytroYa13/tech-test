@@ -1,28 +1,29 @@
-<app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
-
-<ng-container
-  *ngIf="
-    (todoList$ | async | search : todoSearchLabel : 'label')?.length > 0;
-    else emptyState
-  "
->
-  <ul class="todo-list">
-    <li
-      class="todo-list__item"
-      *ngFor="
-        let todo of todoList$ | async | search : todoSearchLabel : 'label';
-        let i = index;
-        trackBy: todoById
-      "
-    >
-      <app-todo-item
-        [todo]="todo"
-        [index]="i + 1"
-        (deleteTodoEvent)="deleteTodo($event)"
-        (toggleDoneEvent)="toggleDone($event)"
-      ></app-todo-item>
-    </li>
-  </ul>
+<ng-container *ngIf="todoList$ | async">
+  <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
+  <ng-container
+    *ngIf="
+      (todoList$ | async | search : todoSearchLabel : 'label')?.length > 0;
+      else emptyState
+    "
+  >
+    <ul class="todo-list">
+      <li
+        class="todo-list__item"
+        *ngFor="
+          let todo of todoList$ | async | search : todoSearchLabel : 'label';
+          let i = index;
+          trackBy: todoById
+        "
+      >
+        <app-todo-item
+          [todo]="todo"
+          [index]="i + 1"
+          (deleteTodoEvent)="deleteTodo($event)"
+          (toggleDoneEvent)="toggleDone($event)"
+        ></app-todo-item>
+      </li>
+    </ul>
+  </ng-container>
 </ng-container>
 
 <ng-template #emptyState>

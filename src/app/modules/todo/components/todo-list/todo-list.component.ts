@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
+import { TodoStateService } from "../../services/todo-state.service";
 import { TodoService } from "../../services/todo.service";
 import { TodoInterface } from "../../types/todo.interface";
 
@@ -15,7 +16,10 @@ export class TodoListComponent implements OnInit {
 
   todoById = (index: number, item: TodoInterface) => item.id;
 
-  constructor(public todoService: TodoService) {}
+  constructor(
+    public todoService: TodoService,
+    private todoStateService: TodoStateService
+  ) {}
 
   ngOnInit(): void {
     this.initializeValues();
@@ -23,7 +27,7 @@ export class TodoListComponent implements OnInit {
   }
 
   initializeValues(): void {
-    this.todoList$ = this.todoService.getTodoList$;
+    this.todoList$ = this.todoStateService.getTodoList$;
   }
 
   fetchData(): void {
@@ -39,7 +43,7 @@ export class TodoListComponent implements OnInit {
       .deleteTodo(id)
       .pipe(take(1))
       .subscribe(() => {
-        this.todoService.filterTodoList(id);
+        this.todoStateService.filterTodoList(id);
       });
   }
 
@@ -53,7 +57,7 @@ export class TodoListComponent implements OnInit {
       .updateTodo(updatedBody, todo.id)
       .pipe(take(1))
       .subscribe(() => {
-        this.todoService.updateTodoList({ ...updatedBody, id: todo.id });
+        this.todoStateService.updateTodoList({ ...updatedBody, id: todo.id });
       });
   }
 }
