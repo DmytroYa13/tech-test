@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('tech-test app is running!');
+    expect(compiled.querySelector('.title-text').textContent).toContain("Welcome to Origin's Angular Technical Test:");
   });
 });
